@@ -1,0 +1,13 @@
+//Calculate the number of sheets of paper needed to make copies for class
+
+function paperwork(n, m) {
+	//check for <0 values
+	if (n <= 0 || m <= 0) {
+		return 0;
+	//checks that values are greater that 0 -> Calculates results
+	} else if (n > 0 && m > 0) {
+		let sum = n * m;
+		return sum;
+	}
+	
+}
