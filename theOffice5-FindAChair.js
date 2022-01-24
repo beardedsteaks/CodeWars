@@ -14,9 +14,10 @@ function meeting(x, need){
         stringLength >= totalChairs ? resultArray.push(0) : resultArray.push(totalChairs - stringLength);
         console.log(resultArray);
         //NEED TO PUT A CONDITIONAL TO ONLY PULL THE NEEDED NUMBER OF CHAIRS FROM THE ROOMS - DO NOT PULL MORE THAN IS NEEDED
+        //currentSum is > need -> current sum - need: array.push(array.pop() - difference); <- potential solutions to consider.
         currentSum = resultArray.reduce(REDUCER);
         console.log(currentSum);
-        if (currentSum >= need) {
+        if (currentSum >= need) { //update this IF to contain the needed solution.
             break;
         }
     }
