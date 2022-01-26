@@ -15,7 +15,7 @@ function meeting(x, need){
           let lastRoom = resultArray.pop() - difference;
           resultArray.push(lastRoom);
           break;
-        } else if ( currentSum === need) {
+        } else if (currentSum === need) {
           break;
         }
     }
