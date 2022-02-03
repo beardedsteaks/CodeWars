@@ -27,20 +27,39 @@ function rank(st, we, n) {
         scoreArray.push((nameLength + score) * we[i]);
     }
     let sortedScoreArray = scoreArray.sort(compareNumbers);
-    //console.log(finalArray);
-    //console.log(sortedScoreArray);
+
     
     //determine highest score
     let rankScore = sortedScoreArray[n - 1];
     let tempIndex = finalArray.indexOf(rankScore);
-    let finalName = finalArray[tempIndex - 1];
-    let resultName = finalName[0].toUpperCase() + finalName.slice(1);
-
-
-    ///NEED TO SORT APHABETICALLY IF MULTIPLE ENTRIES HAVE THE SAME SCORE
-
-    return resultName;
-
+    let multiScoresIndex = [];
+    for (let i = 0, length = finalArray.length; i < length; i++){
+        if (finalArray[i] === rankScore) {
+            multiScoresIndex.push(i);
+        }
+    }
+    //determine if multiple people have the same rank
+    if (multiScoresIndex.length > 1) {
+        let multiLeaderNameArray = [];
+        for (let i = 0, length = multiScoresIndex.length; i < length; i++) {
+            multiLeaderNameArray.push(finalArray[multiScoresIndex[i]-1]);
+        }
+        for (let i = 0, length = multiLeaderNameArray.length; i < length; i++) {
+            let nextIndex = i + 1;
+            if (nextIndex === length) {
+                break;
+            }
+            if (multiLeaderNameArray[i].localeCompare(multiLeaderNameArray[nextIndex]) > 0 ) {
+                let finalName = multiLeaderNameArray[nextIndex];
+                let resultName = finalName[0].toUpperCase() + finalName.slice(1);
+                return resultName;
+            }
+        } 
+    } else if (multiScoresIndex.length === 1) {
+        let finalName = finalArray[tempIndex - 1];
+        let resultName = finalName[0].toUpperCase() + finalName.slice(1);
+        return resultName;
+    }
 }
 
 function compareNumbers (a, b) {
@@ -61,8 +80,9 @@ it("Basic tests",function() {
 
 */
 
-//console.log(rank("Addison,Jayden,Sofia,Michael,Andrew,Lily,Benjamin", [4, 2, 1, 4, 3, 1, 2], 4));
-//console.log(rank("Lagon,Lily", [1, 5], 2));
-//console.log(rank("Addison,Jayden,Sofia,Michael,Andrew,Lily,Benjamin", [4, 2, 1, 4, 3, 1, 2], 8));
-//console.log(rank("", [4, 2, 1, 4, 3, 1, 2], 6));
+console.log(rank("Addison,Jayden,Sofia,Michael,Andrew,Lily,Benjamin", [4, 2, 1, 4, 3, 1, 2], 4));
+console.log(rank("Lagon,Lily", [1, 5], 2));
+console.log(rank("Addison,Jayden,Sofia,Michael,Andrew,Lily,Benjamin", [4, 2, 1, 4, 3, 1, 2], 8));
+console.log(rank("", [4, 2, 1, 4, 3, 1, 2], 6));
 console.log(rank("Daniel,Michael,Ethan,Mia,Olivia,Ella,Ava,Abigail,Lyli,Mason,Elizabeth,Sofia,Natalie,Benjamin,James,Liam,Robert,Avery,Logan,Andrew,Jacob,Jayden,Samantha,Isabella,Addison,Willaim,Madison", [6,5,2,6,3,6,2,5,5,6,3,2,1,5,1,6,3,4,2,2,3,1,1,1,5,3,4], 23));
+console.log(rank("Benjamin,Natalie,Jayden,Ava,Lyli,Lily,Mason,Chloe,Emily,Sophia,Robert,Ethan,Aubrey,Avery,Aiden,Elijah,Matthew,Alexander,Noah,Isabella,Ella,Andrew,Naoh,Logan,Daniel,Elizabeth", [6,1,3,4,4,1,3,5,4,5,5,3,1,3,6,5,6,1,3,4,4,3,1,1,1,4], 12));
